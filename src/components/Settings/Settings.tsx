@@ -1,59 +1,78 @@
-import React, { useEffect, useRef, useState, createRef, useMemo } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { VARIANTS_FIRST, VARIANTS_SECOND } from "../../constants/const";
+import {
+  mouseMoveHandler,
+  mouseUpHandler,
+} from "../../handlers/SettingsHandlers";
 import "./Settings.scss";
 import Range from "./../Range/Range";
 
 const Settings = () => {
   const [countItem, setCountItem] = useState<string | number>(0);
-  const [firsetOption, setFirstOption] = useState([0, 1, 2, 3, 4]);
-  const [readyCount, setReadyCount] = useState(false);
+  const [isReadyVariant, setIsReadyVariant] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerSliderRef = useRef<HTMLDivElement>(null);
 
-  function mouseMoveHandler(e: MouseEvent) {
-    if (
-      sliderRef.current?.getAttribute("start") &&
-      containerSliderRef.current?.getAttribute("leftEdge")
-    ) {
-      const leftEdge = Number(
-        containerSliderRef.current?.getAttribute("leftEdge")
-      );
-      if (
-        sliderRef &&
-        sliderRef.current &&
-        e.clientX >= leftEdge &&
-        e.clientX <= leftEdge + (firsetOption.length - 1) * 90 - 11
-      ) {
-        sliderRef.current.style.left = `${e.clientX - leftEdge - 11}px`;
-      }
-    }
-  }
+  const num = 12;
 
-  function mouseUpHandler() {
-    sliderRef.current?.removeAttribute("start");
-    setReadyCount(true);
-  }
+  const [countItemSecond, setCountItemSecond] = useState<string | number>(0);
+
+  const sliderRefSecond = useRef<HTMLDivElement>(null);
+  const containerSliderRefSecond = useRef<HTMLDivElement>(null);
+  const [isReadyVariantSecond, setIsReadyVariantSecond] = useState(false);
+  const chosenRange = useRef<HTMLDivElement | null>(null);
+  const [range, setRange] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    document.addEventListener("mousemove", mouseMoveHandler);
-    document.addEventListener("mouseup", mouseUpHandler);
+    if (range) {
+      chosenRange.current = range;
+    }
+  }, [range]);
+  useEffect(() => {
+    const mouseMoveHandlerBinded = mouseMoveHandler.bind(null, {
+      chosenRange,
+      sliderRef,
+      containerSliderRef,
+      sliderRefSecond,
+      containerSliderRefSecond,
+    });
+    const mouseUpHandlerBinded = mouseUpHandler.bind(null, {
+      chosenRange,
+      sliderRef,
+      setIsReadyVariant,
+      sliderRefSecond,
+      setIsReadyVariantSecond,
+    });
+    document.addEventListener("mousemove", mouseMoveHandlerBinded);
+    document.addEventListener("mouseup", mouseUpHandlerBinded);
     return () => {
-      document.removeEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", mouseUpHandler);
+      document.removeEventListener("mousemove", mouseMoveHandlerBinded);
+      document.removeEventListener("mouseup", mouseUpHandlerBinded);
     };
   }, []);
 
   return (
     <div className="Settings">
-      <h2>Кол-во предметов {countItem}</h2>
+      <h2>Кол-во предметов</h2>
       <Range
-        values={firsetOption}
-        setter={setCountItem}
-        ref1={sliderRef}
-        ref2={containerSliderRef}
-        readyCount={readyCount}
-        setReadyCount={setReadyCount}
+        variants={VARIANTS_FIRST}
+        setVariant={setCountItem}
+        sliderRef={sliderRef}
+        containerSliderRef={containerSliderRef}
+        isReadyVariant={isReadyVariant}
+        setIsReadyVariant={setIsReadyVariant}
+        setRange={setRange}
       ></Range>
       <h2>Значения</h2>
+      <Range
+        variants={VARIANTS_SECOND}
+        setVariant={setCountItemSecond}
+        sliderRef={sliderRefSecond}
+        containerSliderRef={containerSliderRefSecond}
+        isReadyVariant={isReadyVariantSecond}
+        setIsReadyVariant={setIsReadyVariantSecond}
+        setRange={setRange}
+      ></Range>
       <div className="sort"></div>
     </div>
   );

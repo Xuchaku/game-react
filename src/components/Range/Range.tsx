@@ -1,65 +1,76 @@
-import React, { FC, forwardRef, useEffect } from "react";
+import React, { FC, useEffect } from "react";
+import { INTERVAL_WIDTH, SLIDER_WIDTH } from "../../constants/const";
 import "./Range.scss";
 
 type RangePropsType = {
-  values: (string | number)[];
-  ref1: React.RefObject<HTMLDivElement>;
-  ref2: React.RefObject<HTMLDivElement>;
-  readyCount: boolean;
-  setReadyCount: React.Dispatch<React.SetStateAction<boolean>>;
-  setter: React.Dispatch<React.SetStateAction<number | string>>;
+  variants: (string | number)[];
+  sliderRef: React.RefObject<HTMLDivElement>;
+  containerSliderRef: React.RefObject<HTMLDivElement>;
+  isReadyVariant: boolean;
+  setIsReadyVariant: React.Dispatch<React.SetStateAction<boolean>>;
+  setVariant: React.Dispatch<React.SetStateAction<number | string>>;
+  setRange: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 };
 
 const Range: FC<RangePropsType> = ({
-  values,
-  ref1,
-  ref2,
-  readyCount,
-  setReadyCount,
-  setter,
+  variants,
+  sliderRef,
+  containerSliderRef,
+  isReadyVariant,
+  setIsReadyVariant,
+  setVariant,
+  setRange,
 }) => {
-  const style = { width: (values.length - 1) * 90 };
-  console.log(style);
-  useEffect(() => {
-    if (readyCount) {
-      if (ref1.current) {
-        const x = parseInt(ref1.current.style.left);
+  const style = { width: (variants.length - 1) * INTERVAL_WIDTH };
 
-        const position = Math.round(x / 90);
+  useEffect(() => {
+    if (isReadyVariant) {
+      if (sliderRef.current) {
+        const x = parseInt(sliderRef.current.style.left);
+        const position = Math.round(x / INTERVAL_WIDTH);
         let offset = 0;
-        if (position > 0 && position < values.length - 1) {
-          offset = 11;
-        } else if (position == values.length - 1) {
-          offset = 22;
+
+        if (position > 0 && position < variants.length - 1) {
+          offset = SLIDER_WIDTH / 2;
+        } else if (position == variants.length - 1) {
+          offset = SLIDER_WIDTH;
         }
-        ref1.current.style.left = `${position * 90 - offset}px`;
-        setter(values[position]);
-        setReadyCount(false);
+
+        sliderRef.current.style.left = `${
+          position * INTERVAL_WIDTH - offset
+        }px`;
+        setVariant(variants[position]);
+        setIsReadyVariant(false);
       }
     }
-  }, [readyCount]);
+  }, [isReadyVariant]);
+
   useEffect(() => {
-    console.log("her");
-    if (ref2 && ref2.current) {
-      const { x } = ref2.current?.getBoundingClientRect();
-      ref2.current?.setAttribute("leftEdge", `${x}`);
+    if (containerSliderRef && containerSliderRef.current) {
+      const { x } = containerSliderRef.current?.getBoundingClientRect();
+      containerSliderRef.current?.setAttribute("leftEdge", `${x}`);
     }
   }, []);
 
   function mouseDownHandler() {
-    if (ref1 && ref1.current) ref1.current.setAttribute("start", "true");
+    sliderRef.current?.setAttribute("start", "true");
+    setRange(sliderRef.current);
   }
 
   console.log("render");
   return (
     <div style={style} className="Range-wrapper">
       <div className="values">
-        {values.map((value) => {
-          return <span>{value}</span>;
+        {variants.map((variant) => {
+          return <span>{variant}</span>;
         })}
       </div>
-      <div ref={ref2} className="Range">
-        <div ref={ref1} className="slider" onMouseDown={mouseDownHandler}></div>
+      <div ref={containerSliderRef} className="Range">
+        <div
+          ref={sliderRef}
+          className="slider"
+          onMouseDown={mouseDownHandler}
+        ></div>
       </div>
     </div>
   );
