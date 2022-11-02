@@ -4,18 +4,18 @@ import "./Range.scss";
 
 type RangePropsType = {
   variants: (string | number)[];
+  name: string;
   sliderRef: React.RefObject<HTMLDivElement>;
-  containerSliderRef: React.RefObject<HTMLDivElement>;
   isReadyVariant: boolean;
   setIsReadyVariant: React.Dispatch<React.SetStateAction<boolean>>;
-  setVariant: React.Dispatch<React.SetStateAction<number | string>>;
+  setVariant: (value: string | number) => void;
   setRange: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 };
 
 const Range: FC<RangePropsType> = ({
   variants,
+  name,
   sliderRef,
-  containerSliderRef,
   isReadyVariant,
   setIsReadyVariant,
   setVariant,
@@ -46,9 +46,13 @@ const Range: FC<RangePropsType> = ({
   }, [isReadyVariant]);
 
   useEffect(() => {
-    if (containerSliderRef && containerSliderRef.current) {
-      const { x } = containerSliderRef.current?.getBoundingClientRect();
-      containerSliderRef.current?.setAttribute("leftEdge", `${x}`);
+    if (sliderRef && sliderRef.current) {
+      const targetContainer = sliderRef.current?.parentElement;
+      if (targetContainer) {
+        const { x } = targetContainer?.getBoundingClientRect();
+        targetContainer?.setAttribute("leftEdge", `${x}`);
+        targetContainer?.setAttribute("name", `${name}`);
+      }
     }
   }, []);
 
@@ -65,7 +69,7 @@ const Range: FC<RangePropsType> = ({
           return <span>{variant}</span>;
         })}
       </div>
-      <div ref={containerSliderRef} className="Range">
+      <div className="Range">
         <div
           ref={sliderRef}
           className="slider"

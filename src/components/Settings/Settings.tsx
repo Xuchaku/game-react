@@ -6,22 +6,28 @@ import {
 } from "../../handlers/SettingsHandlers";
 import "./Settings.scss";
 import Range from "./../Range/Range";
+import GameSettings from "../../types/GameSettings/GameSettings";
 
 const Settings = () => {
-  const [countItem, setCountItem] = useState<string | number>(0);
   const [isReadyVariant, setIsReadyVariant] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const containerSliderRef = useRef<HTMLDivElement>(null);
-
-  const num = 12;
-
-  const [countItemSecond, setCountItemSecond] = useState<string | number>(0);
 
   const sliderRefSecond = useRef<HTMLDivElement>(null);
-  const containerSliderRefSecond = useRef<HTMLDivElement>(null);
   const [isReadyVariantSecond, setIsReadyVariantSecond] = useState(false);
+
+  const [settings, setSettings] = useState<GameSettings>({
+    count: 0,
+    value: "A",
+  });
+
   const chosenRange = useRef<HTMLDivElement | null>(null);
   const [range, setRange] = useState<HTMLDivElement | null>(null);
+
+  function changeSettingsHandler(field: string) {
+    return function (value: string | number) {
+      setSettings({ ...settings, [field]: value });
+    };
+  }
 
   useEffect(() => {
     if (range) {
@@ -31,16 +37,10 @@ const Settings = () => {
   useEffect(() => {
     const mouseMoveHandlerBinded = mouseMoveHandler.bind(null, {
       chosenRange,
-      sliderRef,
-      containerSliderRef,
-      sliderRefSecond,
-      containerSliderRefSecond,
     });
     const mouseUpHandlerBinded = mouseUpHandler.bind(null, {
       chosenRange,
-      sliderRef,
       setIsReadyVariant,
-      sliderRefSecond,
       setIsReadyVariantSecond,
     });
     document.addEventListener("mousemove", mouseMoveHandlerBinded);
@@ -53,22 +53,22 @@ const Settings = () => {
 
   return (
     <div className="Settings">
-      <h2>Кол-во предметов</h2>
+      <h2>Кол-во предметов {settings.count}</h2>
       <Range
+        name={"count"}
         variants={VARIANTS_FIRST}
-        setVariant={setCountItem}
+        setVariant={changeSettingsHandler("count")}
         sliderRef={sliderRef}
-        containerSliderRef={containerSliderRef}
         isReadyVariant={isReadyVariant}
         setIsReadyVariant={setIsReadyVariant}
         setRange={setRange}
       ></Range>
-      <h2>Значения</h2>
+      <h2>Значения {settings.value}</h2>
       <Range
+        name={"value"}
         variants={VARIANTS_SECOND}
-        setVariant={setCountItemSecond}
+        setVariant={changeSettingsHandler("value")}
         sliderRef={sliderRefSecond}
-        containerSliderRef={containerSliderRefSecond}
         isReadyVariant={isReadyVariantSecond}
         setIsReadyVariant={setIsReadyVariantSecond}
         setRange={setRange}
