@@ -1,0 +1,29 @@
+@import "./../../globals/styles.scss";
+.Range-wrapper {
+  .Range {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #ffd748;
+    border: 1px solid red;
+    position: relative;
+    .slider {
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 100%;
+      background-color: #104987;
+      cursor: pointer;
+    }
+  }
+  .values {
+    font-size: $font-size-nums;
+    font-family: $font-family-calib;
+    color: $font-color-def;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

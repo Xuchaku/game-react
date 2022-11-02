@@ -1,0 +1,37 @@
+@import "./../../globals/styles.scss";
+.Settings {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  //   border-radius: 40px;
+  //   border: 20px solid red;
+  background: radial-gradient(
+        circle at 100% 100%,
+        #ffffff 0,
+        #ffffff 20px,
+        transparent 20px
+      )
+      0% 0%/40px 40px no-repeat,
+    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 20px, transparent 20px)
+      100% 0%/40px 40px no-repeat,
+    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 20px, transparent 20px)
+      0% 100%/40px 40px no-repeat,
+    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 20px, transparent 20px)
+      100% 100%/40px 40px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 40px)
+      calc(100% - 80px) no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 80px)
+      calc(100% - 40px) no-repeat,
+    linear-gradient(32deg, #101f32 0%, rgba(70, 167, 219, 1) 97%, #7f75f0 100%);
+  border-radius: 40px;
+  padding: 42px;
+  box-sizing: border-box;
+  height: 660px;
+}
+h2 {
+  font-size: $font-size-h2;
+  font-family: $font-family-helv;
+  color: $font-color-def;
+}

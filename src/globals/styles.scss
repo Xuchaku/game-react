@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Calibri";
+  src: url("./../assets/fonts/calibri.ttf");
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("./../assets/fonts/helvetica_regular.otf");
+}
+
+$font-family-helv: "Helvetica";
+$font-family-calib: "Calibri";
+$font-size-h2: 32px;
+$font-size-nums: 24px;
+$font-color-def: #423f45;
