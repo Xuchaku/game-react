@@ -1,0 +1,12 @@
+.GameWrapper {
+  width: 100wh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.Game {
+  width: auto;
+  border: 2px solid red;
+  height: 100%;
+  position: relative;
+}

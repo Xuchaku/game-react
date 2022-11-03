@@ -1,7 +1,7 @@
 type Theme = {
   backgroundColor: string;
   backgorundImage: string;
-  board: React.FunctionComponent<React.SVGProps<SVGSVGElement>> | null;
-  elements: React.FunctionComponent<React.SVGProps<SVGSVGElement>>[];
+  board: string;
+  elements: string[];
 };
 export default Theme;

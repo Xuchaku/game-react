@@ -9,7 +9,7 @@ const initialState: ThemeContextType = {
   theme: {
     backgroundColor: "",
     backgorundImage: "",
-    board: null,
+    board: "",
     elements: [],
   },
   setTheme: () => {},

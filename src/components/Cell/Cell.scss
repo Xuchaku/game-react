@@ -1,0 +1,43 @@
+@import "./../../globals/styles.scss";
+.CellWrapper {
+  border: 1px solid black;
+  border-radius: 100%;
+  text-align: center;
+  position: absolute;
+}
+.Cell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  img,
+  span {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+  }
+  span {
+    font-size: $font-size-item;
+    font-family: $font-family-calib;
+    color: white;
+    text-shadow: -0 -4px 0 #242546, 0 -4px 0 #242546, -0 4px 0 #242546,
+      0 4px 0 #242546, -4px -0 0 #242546, 4px -0 0 #242546, -4px 0 0 #242546,
+      4px 0 0 #242546, -1px -4px 0 #242546, 1px -4px 0 #242546,
+      -1px 4px 0 #242546, 1px 4px 0 #242546, -4px -1px 0 #242546,
+      4px -1px 0 #242546, -4px 1px 0 #242546, 4px 1px 0 #242546,
+      -2px -4px 0 #242546, 2px -4px 0 #242546, -2px 4px 0 #242546,
+      2px 4px 0 #242546, -4px -2px 0 #242546, 4px -2px 0 #242546,
+      -4px 2px 0 #242546, 4px 2px 0 #242546, -3px -4px 0 #242546,
+      3px -4px 0 #242546, -3px 4px 0 #242546, 3px 4px 0 #242546,
+      -4px -3px 0 #242546, 4px -3px 0 #242546, -4px 3px 0 #242546,
+      4px 3px 0 #242546, -4px -4px 0 #242546, 4px -4px 0 #242546,
+      -4px 4px 0 #242546, 4px 4px 0 #242546, -4px -4px 0 #242546,
+      4px -4px 0 #242546, -4px 4px 0 #242546, 4px 4px 0 #242546;
+  }
+  img {
+    left: 0;
+    top: 0;
+  }
+}

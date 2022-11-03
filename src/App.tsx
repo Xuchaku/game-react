@@ -19,7 +19,7 @@ function App() {
   const [theme, setTheme] = useState<Theme>({
     backgroundColor: "",
     backgorundImage: "",
-    board: null,
+    board: "",
     elements: [],
   });
   useLayoutEffect(() => {
