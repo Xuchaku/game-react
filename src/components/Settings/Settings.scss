@@ -28,6 +28,10 @@
   padding: 42px;
   box-sizing: border-box;
   height: auto;
+  a {
+    text-decoration: none;
+    color: $font-color-def;
+  }
 }
 h2 {
   font-size: $font-size-h2;

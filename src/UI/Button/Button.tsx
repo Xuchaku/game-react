@@ -3,7 +3,7 @@ import GameSettings from "../../types/GameSettings/GameSettings";
 import "./Button.scss";
 
 type ButtonPropsType = {
-  children: string;
+  children: string | React.ReactNode;
   type: "major" | "minor";
   active?: boolean;
   setVariant?: React.Dispatch<React.SetStateAction<GameSettings>>;

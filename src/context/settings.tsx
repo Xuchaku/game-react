@@ -1,12 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import GameSettings from "../types/GameSettings/GameSettings";
-type SettingsContext = {
+type SettingsContextType = {
   settings: GameSettings;
   setSettings: React.Dispatch<React.SetStateAction<GameSettings>>;
 };
-const initialState: SettingsContext = {
+const initialState: SettingsContextType = {
   settings: { count: 0, value: 0, order: true },
   setSettings: () => {},
 };
 
-export const Settings = createContext<SettingsContext>(initialState);
+export const SettingsContext = createContext<SettingsContextType>(initialState);

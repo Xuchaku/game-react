@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { VARIANTS_FIRST, VARIANTS_SECOND } from "../../constants/const";
-import { Settings as Config } from "../../context";
+import { SettingsContext as Config } from "../../context/settings";
 import {
   mouseMoveHandler,
   mouseUpHandler,
@@ -81,7 +82,9 @@ const Settings = () => {
         </Button>
       </div>
       <div className="play">
-        <Button type="major">Играть</Button>
+        <Button type="major">
+          <Link to={"/game"}>Играть</Link>
+        </Button>
       </div>
     </div>
   );
