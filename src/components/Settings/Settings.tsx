@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { VARIANTS_FIRST, VARIANTS_SECOND } from "../../constants/const";
+import { Settings as Config } from "../../context";
 import {
   mouseMoveHandler,
   mouseUpHandler,
@@ -7,6 +8,7 @@ import {
 import "./Settings.scss";
 import Range from "./../Range/Range";
 import GameSettings from "../../types/GameSettings/GameSettings";
+import Button from "../../UI/Button/Button";
 
 const Settings = () => {
   const [isReadyVariant, setIsReadyVariant] = useState(false);
@@ -15,17 +17,14 @@ const Settings = () => {
   const sliderRefSecond = useRef<HTMLDivElement>(null);
   const [isReadyVariantSecond, setIsReadyVariantSecond] = useState(false);
 
-  const [settings, setSettings] = useState<GameSettings>({
-    count: 0,
-    value: "A",
-  });
+  const { settings, setSettings } = useContext(Config);
 
   const chosenRange = useRef<HTMLDivElement | null>(null);
   const [range, setRange] = useState<HTMLDivElement | null>(null);
 
   function changeSettingsHandler(field: string) {
-    return function (value: string | number) {
-      setSettings({ ...settings, [field]: value });
+    return function (value: string | number | boolean) {
+      if (setSettings) setSettings({ ...settings, [field]: value });
     };
   }
 
@@ -63,7 +62,7 @@ const Settings = () => {
         setIsReadyVariant={setIsReadyVariant}
         setRange={setRange}
       ></Range>
-      <h2>Значения {settings.value}</h2>
+      <h2>Значения</h2>
       <Range
         name={"value"}
         variants={VARIANTS_SECOND}
@@ -73,7 +72,17 @@ const Settings = () => {
         setIsReadyVariant={setIsReadyVariantSecond}
         setRange={setRange}
       ></Range>
-      <div className="sort"></div>
+      <div className="sort">
+        <Button type="minor" active={settings?.order} setVariant={setSettings}>
+          По возрастанию
+        </Button>
+        <Button type="minor" active={!settings?.order} setVariant={setSettings}>
+          По убыванию
+        </Button>
+      </div>
+      <div className="play">
+        <Button type="major">Играть</Button>
+      </div>
     </div>
   );
 };

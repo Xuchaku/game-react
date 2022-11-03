@@ -1,0 +1,26 @@
+@import "./../../globals/styles.scss";
+.Button {
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  font-family: $font-family-calib;
+  font-size: $font-size-h2;
+  cursor: pointer;
+}
+.active {
+  opacity: 1;
+}
+.inactive {
+  opacity: 0.5;
+}
+.minor {
+  background-color: #ffd748;
+  color: #423f45;
+  padding: 2px 24px;
+}
+.major {
+  font-family: $font-family-helv;
+  background-color: #38df7a;
+  color: white;
+  padding: 12px 60px;
+}
