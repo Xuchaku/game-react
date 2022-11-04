@@ -3,10 +3,13 @@
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .Game {
   width: auto;
+  width: 980px;
+  height: 810px;
   border: 2px solid red;
-  height: 100%;
+
   position: relative;
 }

@@ -1,4 +1,12 @@
 .Board {
-  width: 600px;
-  height: 200px;
+  width: 886px;
+  height: 222px;
+  margin: auto;
+  margin-top: 450px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 4px;
+}
+.Board > div:first-child {
+  margin-left: 34px;
 }

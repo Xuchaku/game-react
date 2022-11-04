@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useMemo } from "react";
+import { SettingsContext } from "../../context/settings";
+import Slot from "../Slot/Slot";
 import "./Board.scss";
-import s from "./../../assets/imgs/flowers/board.svg";
 
 type BoardTypeProps = {
   svgSrc: string;
@@ -8,11 +9,22 @@ type BoardTypeProps = {
 
 const Board: FC<BoardTypeProps> = ({ svgSrc }) => {
   const style = {
-    backgroundImage: `url(${s})`,
+    backgroundImage: `url(${svgSrc})`,
   };
+  const { settings } = useContext(SettingsContext);
+  const containerSlots = useMemo(() => {
+    const containers = [];
+    for (let i = 0; i < settings.count; i++) {
+      containers.push(i);
+    }
+    return containers;
+  }, []);
+
   return (
     <div className="Board" style={style}>
-      {/* <img src={svgSrc} alt="" /> */}
+      {containerSlots.map((container) => {
+        return <Slot index={container}></Slot>;
+      })}
     </div>
   );
 };
