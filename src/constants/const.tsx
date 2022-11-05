@@ -35,6 +35,9 @@ export const VARIANTS_SECOND = ["A", 9, 19, 50, 99, 999];
 export const WIDTH_ITEM = 160;
 export const HEIGHT_ITEM = 160;
 
+export const WIDTH_SLOT = 130;
+export const HEIGHT_SLOT = 130;
+
 export const THEMES: Theme[] = [
   {
     backgroundColor: "#DEC6AA",

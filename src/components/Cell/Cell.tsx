@@ -1,5 +1,10 @@
 import React, { FC } from "react";
-import { WIDTH_ITEM, HEIGHT_ITEM } from "../../constants/const";
+import {
+  WIDTH_ITEM,
+  HEIGHT_ITEM,
+  HEIGHT_SLOT,
+  WIDTH_SLOT,
+} from "../../constants/const";
 import Item from "../../types/Item/Item";
 import Slot from "../../types/Slot/Slot";
 import "./Cell.scss";
@@ -29,13 +34,16 @@ const Cell: FC<CellPropsType> = ({
   };
 
   function handlerDown(e: React.MouseEvent<HTMLDivElement>) {
-    currentItemRef.current = e.target as HTMLDivElement;
+    currentItemRef.current = e.currentTarget as HTMLDivElement;
   }
 
   function getIndexSlotByXY(x: number, y: number, slots: Slot[]) {
     let findIndex = slots.findIndex((slot) => {
       return (
-        x >= slot.x && x <= slot.x + 130 && y >= slot.y && y <= slot.y + 130
+        x >= slot.x &&
+        x <= slot.x + WIDTH_SLOT &&
+        y >= slot.y &&
+        y <= slot.y + HEIGHT_SLOT
       );
     });
     return findIndex;
@@ -45,10 +53,18 @@ const Cell: FC<CellPropsType> = ({
     let index = getIndexSlotByXY(e.clientX, e.clientY, slots);
 
     if (item.value == answers[index] && index >= 0) {
+      if (currentItemRef.current) {
+        currentItemRef.current.style.transform = `scale(${
+          WIDTH_SLOT / WIDTH_ITEM
+        })`;
+        // currentItemRef.current.style.left = `${slots[index].x}px`;
+        // currentItemRef.current.style.top = `${slots[index].y}px`;
+      }
     } else {
       if (currentItemRef.current) {
         currentItemRef.current.style.left = `${item.x}px`;
         currentItemRef.current.style.top = `${item.y}px`;
+        currentItemRef.current.style.transform = `scale(1)`;
       }
     }
     currentItemRef.current = null;

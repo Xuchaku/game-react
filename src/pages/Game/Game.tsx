@@ -12,7 +12,6 @@ import Cell from "../../components/Cell/Cell";
 import { WIDTH_ITEM, HEIGHT_ITEM } from "../../constants/const";
 import { SettingsContext } from "../../context/settings";
 import { ThemeContext } from "../../context/theme";
-import { useRect } from "../../hooks/userRect";
 import Item from "../../types/Item/Item";
 import Slot from "../../types/Slot/Slot";
 import { generateItem } from "../../utils";
@@ -33,7 +32,11 @@ const Game = () => {
     });
     if (typeof values[0] == "number") {
       let valuesNumbers = values as number[];
-      return valuesNumbers.sort((a, b) => a - b);
+      if (settings.order) {
+        return valuesNumbers.sort((a, b) => a - b);
+      } else {
+        return valuesNumbers.sort((a, b) => b - a);
+      }
     } else {
       let valuesChars = values as string[];
       return valuesChars.sort();
