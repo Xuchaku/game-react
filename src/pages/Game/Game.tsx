@@ -1,4 +1,3 @@
-import { off } from "process";
 import React, {
   useCallback,
   useContext,
@@ -20,10 +19,8 @@ import "./Game.scss";
 const Game = () => {
   const { theme } = useContext(ThemeContext);
   const { settings } = useContext(SettingsContext);
-
   const [items, setItems] = useState<Item[]>([]);
   const [slots, setSlots] = useState<Slot[]>([]);
-
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const answers = useMemo(() => {
@@ -69,6 +66,7 @@ const Game = () => {
     }
     setItems(newItems);
   }, [theme]);
+
   useLayoutEffect(() => {
     const rects = document.querySelectorAll(".Slot");
     const newSlots: Slot[] = [];
@@ -89,14 +87,22 @@ const Game = () => {
       setOffset({ x, y });
     }
   }, []);
-
+  const BackGroundsDecorations = Object.entries(theme.backgorundImage);
   const style = {
     backgroundColor: theme.backgroundColor,
-    backgroundImage: theme.backgorundImage,
   };
+
   return (
     <div style={style} className="GameWrapper" onMouseMove={handlerMove}>
       <div className="Game">
+        {BackGroundsDecorations.map((elem) => {
+          const BackgroundSVG = elem[1];
+          return BackgroundSVG ? (
+            <div className={`Background ${elem[0]}`}>
+              <BackgroundSVG></BackgroundSVG>
+            </div>
+          ) : null;
+        })}
         {items.map((item) => {
           return (
             <Cell

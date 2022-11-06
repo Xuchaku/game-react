@@ -10,7 +10,26 @@
   width: auto;
   width: 980px;
   height: 810px;
-  border: 2px solid red;
 
   position: relative;
+}
+.Background {
+  position: absolute;
+}
+.rightTopDecoration,
+.rightBottomDecoration {
+  right: 0;
+}
+.leftTopDecoration,
+.leftBottomDecoration {
+  left: 0;
+}
+
+.leftBottomDecoration,
+.rightBottomDecoration {
+  bottom: 0;
+}
+.rightTopDecoration,
+.leftTopDecoration {
+  top: 0;
 }

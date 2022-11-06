@@ -8,7 +8,6 @@ import {
 } from "../../handlers/SettingsHandlers";
 import "./Settings.scss";
 import Range from "./../Range/Range";
-import GameSettings from "../../types/GameSettings/GameSettings";
 import Button from "../../UI/Button/Button";
 
 const Settings = () => {

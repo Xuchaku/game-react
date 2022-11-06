@@ -8,7 +8,10 @@ type ThemeContextType = {
 const initialState: ThemeContextType = {
   theme: {
     backgroundColor: "",
-    backgorundImage: "",
+    backgorundImage: {
+      leftBottomDecoration: null,
+      rightBottomDecoration: null,
+    },
     board: "",
     elements: [],
   },
