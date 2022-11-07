@@ -1,0 +1,46 @@
+.Popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.Overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.Content {
+  position: absolute;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  width: 620px;
+  height: 480px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(
+        circle at 100% 100%,
+        #ffffff 0,
+        #ffffff 20px,
+        transparent 20px
+      )
+      0% 0%/40px 40px no-repeat,
+    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 20px, transparent 20px)
+      100% 0%/40px 40px no-repeat,
+    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 20px, transparent 20px)
+      0% 100%/40px 40px no-repeat,
+    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 20px, transparent 20px)
+      100% 100%/40px 40px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 40px)
+      calc(100% - 80px) no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 80px)
+      calc(100% - 40px) no-repeat,
+    linear-gradient(transparent 0%, #67df89 0%, #8d67df 100%);
+  border-radius: 40px;
+  padding: 24px;
+  box-sizing: border-box;
+}

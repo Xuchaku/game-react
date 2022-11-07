@@ -54,6 +54,7 @@ const Cell: FC<CellPropsType> = ({
 
     if (item.value == answers[index] && index >= 0) {
       if (currentItemRef.current) {
+        console.log(index);
         currentItemRef.current.style.transform = `scale(${
           WIDTH_SLOT / WIDTH_ITEM
         })`;

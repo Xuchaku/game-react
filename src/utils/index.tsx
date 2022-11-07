@@ -3,12 +3,38 @@ import Item from "../types/Item/Item";
 import Slot from "../types/Slot/Slot";
 import Theme from "../types/Theme/Theme";
 
-function randomInteger(min: number, max: number): number {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
+type HashTable = {
+  [key: string]: boolean;
+};
+
+function randomInteger(min: number, max: number, hashTable: HashTable): number {
+  let rand = 0;
+  do {
+    rand = Math.floor(min + Math.random() * (max + 1 - min));
+    let hasFind = hashTable[rand];
+    if (!hasFind) {
+      hashTable[rand] = true;
+      break;
+    }
+  } while (true);
+
+  return rand;
 }
-function randomChar(min: number = 65, max: number = 90): string {
-  let rand = Math.floor(min + Math.random() * (max + 1 - min));
+function randomChar(
+  min: number = 65,
+  max: number = 90,
+  hashTable: HashTable
+): string {
+  let rand = 0;
+  do {
+    rand = Math.floor(min + Math.random() * (max + 1 - min));
+    let hasFind = hashTable[rand];
+    if (!hasFind) {
+      hashTable[rand] = true;
+      break;
+    }
+  } while (true);
+
   return String.fromCharCode(rand);
 }
 export const initItems = (
@@ -69,7 +95,8 @@ export const generateItem = (
 ): Item => {
   switch (typeof edge) {
     case "string": {
-      const item: Item = { value: randomChar(), x, y, svgSrc };
+      const hashTable: HashTable = {};
+      const item: Item = { value: randomChar(65, 90, hashTable), x, y, svgSrc };
       return item;
     }
     case "number": {
@@ -80,9 +107,9 @@ export const generateItem = (
       } else {
         leftEdge = VARIANTS_SECOND[leftIndex - 1] as number;
       }
-
+      const hashTable: HashTable = {};
       const item: Item = {
-        value: randomInteger(leftEdge, edge),
+        value: randomInteger(leftEdge, edge, hashTable),
         x,
         y,
         svgSrc,
@@ -90,7 +117,8 @@ export const generateItem = (
       return item;
     }
     default: {
-      return { value: randomInteger(0, 0), x, y, svgSrc };
+      const hashTable: HashTable = {};
+      return { value: randomInteger(0, 0, hashTable), x, y, svgSrc };
     }
   }
 };
