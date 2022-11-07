@@ -1,0 +1,20 @@
+.Decoration {
+  position: absolute;
+}
+.rightTopDecoration,
+.rightBottomDecoration {
+  right: 0;
+}
+.leftTopDecoration,
+.leftBottomDecoration {
+  left: 0;
+}
+
+.leftBottomDecoration,
+.rightBottomDecoration {
+  bottom: 0;
+}
+.rightTopDecoration,
+.leftTopDecoration {
+  top: 0;
+}

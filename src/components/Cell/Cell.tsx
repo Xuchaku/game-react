@@ -57,8 +57,6 @@ const Cell: FC<CellPropsType> = ({
         currentItemRef.current.style.transform = `scale(${
           WIDTH_SLOT / WIDTH_ITEM
         })`;
-        // currentItemRef.current.style.left = `${slots[index].x}px`;
-        // currentItemRef.current.style.top = `${slots[index].y}px`;
       }
     } else {
       if (currentItemRef.current) {

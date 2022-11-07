@@ -10,26 +10,5 @@
   width: auto;
   width: 980px;
   height: 810px;
-
   position: relative;
-}
-.Background {
-  position: absolute;
-}
-.rightTopDecoration,
-.rightBottomDecoration {
-  right: 0;
-}
-.leftTopDecoration,
-.leftBottomDecoration {
-  left: 0;
-}
-
-.leftBottomDecoration,
-.rightBottomDecoration {
-  bottom: 0;
-}
-.rightTopDecoration,
-.leftTopDecoration {
-  top: 0;
 }

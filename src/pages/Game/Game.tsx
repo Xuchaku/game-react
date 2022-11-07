@@ -8,12 +8,14 @@ import React, {
 } from "react";
 import Board from "../../components/Board/Board";
 import Cell from "../../components/Cell/Cell";
+import { Decoration } from "../../components/Decoration/Decoration";
 import { WIDTH_ITEM, HEIGHT_ITEM } from "../../constants/const";
 import { SettingsContext } from "../../context/settings";
 import { ThemeContext } from "../../context/theme";
+import { useAnswers } from "../../hooks/useAnswers";
 import Item from "../../types/Item/Item";
 import Slot from "../../types/Slot/Slot";
-import { generateItem } from "../../utils";
+import { generateItem, initItems, initOffset, initSlots } from "../../utils";
 
 import "./Game.scss";
 const Game = () => {
@@ -22,86 +24,42 @@ const Game = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [slots, setSlots] = useState<Slot[]>([]);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  const answers = useMemo(() => {
-    const values = items.map((item) => {
-      return item.value;
-    });
-    if (typeof values[0] == "number") {
-      let valuesNumbers = values as number[];
-      if (settings.order) {
-        return valuesNumbers.sort((a, b) => a - b);
-      } else {
-        return valuesNumbers.sort((a, b) => b - a);
-      }
-    } else {
-      let valuesChars = values as string[];
-      return valuesChars.sort();
-    }
-  }, [items]);
-
+  const answers = useAnswers(items);
   const currentItemRef = useRef<HTMLDivElement | null>(null);
-  const handlerMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      if (currentItemRef.current) {
-        currentItemRef.current.style.left = `${
-          e.clientX - offset.x - WIDTH_ITEM / 2
-        }px`;
-        currentItemRef.current.style.top = `${
-          e.clientY - offset.y - HEIGHT_ITEM / 2
-        }px`;
-      }
-    },
-    [offset]
-  );
 
-  useLayoutEffect(() => {
-    const newItems: Item[] = [];
-    let x = 0,
-      y = 0;
-    for (let i = 0; i < settings.count; i++) {
-      x = i * WIDTH_ITEM + (i + 1) * 20;
-      y = (i % 2 == 0 ? 0 : 1) * 40 + 20;
-      newItems.push(generateItem(settings.value, x, y, theme.elements[i]));
+  function handlerMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (currentItemRef.current) {
+      currentItemRef.current.style.left = `${
+        e.clientX - offset.x - WIDTH_ITEM / 2
+      }px`;
+      currentItemRef.current.style.top = `${
+        e.clientY - offset.y - HEIGHT_ITEM / 2
+      }px`;
     }
-    setItems(newItems);
-  }, [theme]);
+  }
 
-  useLayoutEffect(() => {
-    const rects = document.querySelectorAll(".Slot");
-    const newSlots: Slot[] = [];
-    rects.forEach((rect) => {
-      let index = Number(rect.getAttribute("data-index")) as number;
-      let { x, y } = rect.getBoundingClientRect();
-      newSlots.push({
-        index,
-        x: Math.floor(x),
-        y: Math.floor(y),
-      });
-    });
-    setSlots(newSlots);
-
-    const container = document.querySelector(".Game");
-    if (container) {
-      let { x, y } = container.getBoundingClientRect();
-      setOffset({ x, y });
-    }
-  }, []);
-  const BackGroundsDecorations = Object.entries(theme.backgorundImage);
+  const backGroundsDecorations = Object.entries(theme.backgorundImage);
   const style = {
     backgroundColor: theme.backgroundColor,
   };
 
+  useLayoutEffect(() => {
+    initItems(settings.count, settings.value, theme, setItems);
+    initSlots(setSlots);
+    initOffset(setOffset);
+  }, [theme]);
+
   return (
     <div style={style} className="GameWrapper" onMouseMove={handlerMove}>
       <div className="Game">
-        {BackGroundsDecorations.map((elem) => {
-          const BackgroundSVG = elem[1];
-          return BackgroundSVG ? (
-            <div className={`Background ${elem[0]}`}>
-              <BackgroundSVG></BackgroundSVG>
-            </div>
-          ) : null;
+        {backGroundsDecorations.map((decoration) => {
+          const BackgroundSVG = decoration[1];
+          return (
+            <Decoration
+              extendClassName={decoration[0]}
+              svg={BackgroundSVG}
+            ></Decoration>
+          );
         })}
         {items.map((item) => {
           return (

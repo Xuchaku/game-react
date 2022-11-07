@@ -1,6 +1,7 @@
+@import "./../../globals/styles.scss";
 .Board {
-  width: 886px;
-  height: 222px;
+  width: 900px;
+  height: 230px;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -8,7 +9,8 @@
   flex-direction: row;
   column-gap: 4px;
   position: absolute;
+  background-repeat: no-repeat;
 }
-.Board > div:first-child {
+.Board > div:nth-child(2) {
   margin-left: 164px;
 }

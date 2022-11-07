@@ -1,0 +1,41 @@
+@import "./../../globals/styles.scss";
+.Arrow {
+  position: absolute;
+  top: -50px;
+  align-items: center;
+  display: flex;
+  p {
+    user-select: none;
+    font-size: $font-size-h2;
+    font-family: $font-family-calib;
+    color: white;
+    width: 300px;
+    text-shadow: -0 -4px 0 #242546, 0 -4px 0 #242546, -0 4px 0 #242546,
+      0 4px 0 #242546, -4px -0 0 #242546, 4px -0 0 #242546, -4px 0 0 #242546,
+      4px 0 0 #242546, -1px -4px 0 #242546, 1px -4px 0 #242546,
+      -1px 4px 0 #242546, 1px 4px 0 #242546, -4px -1px 0 #242546,
+      4px -1px 0 #242546, -4px 1px 0 #242546, 4px 1px 0 #242546,
+      -2px -4px 0 #242546, 2px -4px 0 #242546, -2px 4px 0 #242546,
+      2px 4px 0 #242546, -4px -2px 0 #242546, 4px -2px 0 #242546,
+      -4px 2px 0 #242546, 4px 2px 0 #242546, -3px -4px 0 #242546,
+      3px -4px 0 #242546, -3px 4px 0 #242546, 3px 4px 0 #242546,
+      -4px -3px 0 #242546, 4px -3px 0 #242546, -4px 3px 0 #242546,
+      4px 3px 0 #242546, -4px -4px 0 #242546, 4px -4px 0 #242546,
+      -4px 4px 0 #242546, 4px 4px 0 #242546, -4px -4px 0 #242546,
+      4px -4px 0 #242546, -4px 4px 0 #242546, 4px 4px 0 #242546;
+  }
+  svg,
+  p {
+    position: absolute;
+  }
+}
+.Arrow.Left {
+  left: 0;
+}
+.Arrow.Right {
+  right: 0;
+  margin-right: 260px;
+  p {
+    right: -420px;
+  }
+}

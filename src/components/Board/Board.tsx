@@ -1,5 +1,6 @@
 import React, { FC, useContext, useMemo } from "react";
 import { SettingsContext } from "../../context/settings";
+import Arrow from "../Arrow/Arrow";
 import Slot from "../Slot/Slot";
 import "./Board.scss";
 
@@ -22,6 +23,11 @@ const Board: FC<BoardTypeProps> = ({ svgSrc }) => {
 
   return (
     <div className="Board" style={style}>
+      <Arrow></Arrow>
+      {/* <div className={`Arrow ${settings.order ? "Left" : "Right"}`}>
+        <Arrow></Arrow>
+        <p>{textArrow}</p>
+      </div> */}
       {containerSlots.map((container) => {
         return <Slot index={container}></Slot>;
       })}
